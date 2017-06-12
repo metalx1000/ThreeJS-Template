@@ -11,6 +11,7 @@ function onWindowResize( event ) {
 }
 
 function createCube(d){
+  if(typeof d === "undefined"){d = {};}
   //possition
   if(typeof d.x === "undefined"){d.x = 0;}
   if(typeof d.y === "undefined"){d.y = 0;}
@@ -60,6 +61,8 @@ function materials(m,c){
     var material = new THREE.MeshNormalMaterial();
   }else if(m == "basic"){
     var material = new THREE.MeshBasicMaterial( {color: c} );
+  }else if(m == "line"){
+    var material = new THREE.LineBasicMaterial({color: c});
   }else{
     var material = new THREE.MeshNormalMaterial();
   }
@@ -107,3 +110,27 @@ function controlsOrbit(){
   controls = new THREE.OrbitControls(camera, renderer.domElement);
 }
 
+function createGrid(d){
+  if(typeof d === "undefined"){d = {};}
+  if(typeof d.size === "undefined"){d.size = 30;}
+  if(typeof d.step === "undefined"){d.step = .2;}
+  //colors and materials
+  if(typeof d.material === "undefined"){d.material = "line";}
+  if(typeof d.color === "undefined"){d.color = "green";}
+
+  var geometry = new THREE.Geometry();
+  var material = materials(d.material, d.color);
+
+  for ( var i = - d.size; i <= d.size; i += d.step){
+    geometry.vertices.push(new THREE.Vector3( - d.size, - 0.04, i ));
+    geometry.vertices.push(new THREE.Vector3( d.size, - 0.04, i ));
+
+    geometry.vertices.push(new THREE.Vector3( i, - 0.04, - d.size ));
+    geometry.vertices.push(new THREE.Vector3( i, - 0.04, d.size ));
+
+  }
+
+  var grid = new THREE.Line( geometry, material, THREE.LineSegments);
+  scene.add(grid);
+  return grid;
+}
