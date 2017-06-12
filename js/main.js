@@ -10,8 +10,10 @@ function create(){
   scene = new THREE.Scene();
 
   //add camera
-  createCamera();
+  camera = createCamera({x:1});
 
+  //add cube
+  cube = createCube({x:1});
   //start animation
   animate();
 }
@@ -23,9 +25,3 @@ function animate(){
   });
 }
 
-function createCamera(){
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.y = -400;
-  camera.position.z = 400;
-  camera.rotation.x = .70;
-}

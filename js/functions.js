@@ -20,3 +20,16 @@ function createCube(d){
 }
 
 
+function createCamera(d){
+  //possition
+  if(typeof d.x === "undefined"){d.x = .70;}
+  if(typeof d.y === "undefined"){d.y = -400;}
+  if(typeof d.z === "undefined"){d.z = 400;}
+
+  var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+  camera.rotation.x = d.x;
+  camera.position.y = d.y;
+  camera.position.z = d.z;
+
+  return camera;
+}
