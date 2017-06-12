@@ -12,14 +12,18 @@ function create(){
   //add camera
   camera = createCamera({x:1});
 
+  //add camera controls
+  controlsOrbit();
+
   //add flycontrols
   //controlsFly();
 
   //add cube
-  cube = createCube({x:1});
+  //cube = createCube({x:1});
 
   //start animation
   animate();
+
 }
 
 function animate(){
@@ -32,4 +36,3 @@ function animate(){
     animate();
   });
 }
-

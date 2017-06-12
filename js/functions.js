@@ -17,9 +17,9 @@ function createCube(d){
   if(typeof d.z === "undefined"){d.z = 0;}
 
   //size
-  if(typeof d.sx === "undefined"){d.sx = 100;}
-  if(typeof d.sy === "undefined"){d.sy = 100;}
-  if(typeof d.sz === "undefined"){d.sz = 100;}
+  if(typeof d.sx === "undefined"){d.sx = 1;}
+  if(typeof d.sy === "undefined"){d.sy = 1;}
+  if(typeof d.sz === "undefined"){d.sz = 1;}
 
   var cube = new THREE.Mesh(new THREE.CubeGeometry(d.sx,d.sy,d.sz), new THREE.MeshNormalMaterial());
   cube.position.x = d.x;
@@ -34,15 +34,14 @@ function createCube(d){
 
 function createCamera(d){
   //possition
-  if(typeof d.x === "undefined"){d.x = .70;}
-  if(typeof d.y === "undefined"){d.y = -400;}
-  if(typeof d.z === "undefined"){d.z = 400;}
+  if(typeof d.x === "undefined"){d.x = 2;}
+  if(typeof d.y === "undefined"){d.y = 2;}
+  if(typeof d.z === "undefined"){d.z = 3;}
 
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.rotation.x = d.x;
-  camera.position.y = d.y;
-  camera.position.z = d.z;
-
+  //camera.rotation.x = d.x;
+  camera.position.set( d.x, d.y, d.z );
+  camera.lookAt(scene.position);
   return camera;
 }
 
@@ -56,3 +55,20 @@ function controlsFly(){
   controls.autoForward = false;
   controls.dragToLook = false;
 }
+
+function loadDAE(_dae){
+  if(typeof _dae === "undefined"){_dae = "monkey.dae";}
+  _dae = "models/dae/" + _dae;
+  console.log("loading "+_dae);
+  var loader = new THREE.ColladaLoader();
+  loader.options.convertUpAxis = true;
+  loader.load( _dae, function ( collada ) {
+    dae = collada.scene;
+    scene.add(dae);
+  });
+}
+
+function controlsOrbit(){
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+}
+
