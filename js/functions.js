@@ -21,6 +21,9 @@ function createCube(d){
   if(typeof d.sy === "undefined"){d.sy = 1;}
   if(typeof d.sz === "undefined"){d.sz = 1;}
 
+  //color
+  if(typeof d.color === "undefined"){d.color = ( Math.random() * 0xffffff );}
+
   var cube = new THREE.Mesh(new THREE.CubeGeometry(d.sx,d.sy,d.sz), new THREE.MeshNormalMaterial());
   cube.position.x = d.x;
   cube.position.y = d.y;
@@ -31,6 +34,38 @@ function createCube(d){
   return cube;
 }
 
+
+function createCylinder(d){
+  if(typeof d === "undefined"){d = {};}
+
+  if(typeof d.radtop === "undefined"){d.radtop = .2;}
+  if(typeof d.radbottom === "undefined"){d.radbottom = .2;}
+  if(typeof d.h === "undefined"){d.h = 1;}
+  if(typeof d.segments === "undefined"){d.segments = 32;}
+  if(typeof d.openend === "undefined"){d.openend = false;}
+
+  //colors and materials
+  if(typeof d.material === "undefined"){d.material = "normal";}
+  if(typeof d.color === "undefined"){d.color = ( Math.random() * 0xffffff );}
+
+  var geometry = new THREE.CylinderGeometry( d.radtop, d.radbottom, d.h, d.segments );
+  var material = materials(d.material, d.color);
+  var c = new THREE.Mesh( geometry, material );
+  scene.add(c);
+  return c;
+}
+
+function materials(m,c){
+  if(m == "normal"){
+    var material = new THREE.MeshNormalMaterial();
+  }else if(m == "basic"){
+    var material = new THREE.MeshBasicMaterial( {color: c} );
+  }else{
+    var material = new THREE.MeshNormalMaterial();
+  }
+
+  return material;
+}
 
 function createCamera(d){
   //possition
