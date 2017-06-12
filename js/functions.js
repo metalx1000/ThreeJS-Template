@@ -106,8 +106,14 @@ function loadDAE(_dae){
   });
 }
 
-function controlsOrbit(){
+function controlsOrbit(d){
+  if(typeof d === "undefined"){d = {};}
+  if(typeof d.limit === "undefined"){d.limit = false;}
   controls = new THREE.OrbitControls(camera, renderer.domElement);
+  if(d.limit == true ){
+    console.log(controls.maxPolarAngle);
+    controls.maxPolarAngle = Math.PI/2 - .1; 
+  }
 }
 
 function createGrid(d){

@@ -13,7 +13,7 @@ function create(){
   camera = createCamera({x:1});
 
   //add camera controls
-  controlsOrbit();
+  controlsOrbit({limit:true});
 
   //add flycontrols
   //controlsFly();
