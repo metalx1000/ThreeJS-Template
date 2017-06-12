@@ -33,3 +33,14 @@ function createCamera(d){
 
   return camera;
 }
+
+
+function controlsFly(){
+  clock = new THREE.Clock();
+  controls = new THREE.FlyControls( camera );
+  controls.movementSpeed = 1000;
+  //controls.domElement = container;
+  controls.rollSpeed = Math.PI / 24;
+  controls.autoForward = false;
+  controls.dragToLook = false;
+}
