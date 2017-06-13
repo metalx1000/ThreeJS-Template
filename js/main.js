@@ -13,13 +13,13 @@ function create(){
   camera = createCamera({x:1});
 
   //add camera controls
-  controlsOrbit({limit:true});
+  controlsOrbit({limit:false});
 
   //add flycontrols
   //controlsFly();
 
   //add cube
-  //cube = createCube({x:1});
+  //createCube({x:0,y:0,z:0,sx:1,sy:1,sz:1,material:"normal"});
 
   //start animation
   animate();

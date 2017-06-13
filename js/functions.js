@@ -23,14 +23,16 @@ function createCube(d){
   if(typeof d.sz === "undefined"){d.sz = 1;}
 
   //color
+  if(typeof d.material === "undefined"){d.material = "normal";}
   if(typeof d.color === "undefined"){d.color = ( Math.random() * 0xffffff );}
 
-  var cube = new THREE.Mesh(new THREE.CubeGeometry(d.sx,d.sy,d.sz), new THREE.MeshNormalMaterial());
+  var material = materials(d.material, d.color);
+  var cube = new THREE.Mesh(new THREE.CubeGeometry(d.sx,d.sy,d.sz), material);
   cube.position.x = d.x;
   cube.position.y = d.y;
   cube.position.z = d.z;
-  cube.rotation.x = 10;
-  cube.rotation.z = .5;
+  //cube.rotation.x = 10;
+  //cube.rotation.z = .5;
   scene.add(cube);
   return cube;
 }
@@ -111,7 +113,7 @@ function controlsOrbit(d){
   if(typeof d.limit === "undefined"){d.limit = false;}
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   if(d.limit == true ){
-    console.log(controls.maxPolarAngle);
+    //console.log(controls.maxPolarAngle);
     controls.maxPolarAngle = Math.PI/2 - .1; 
   }
 }
