@@ -142,3 +142,34 @@ function createGrid(d){
   scene.add(grid);
   return grid;
 }
+
+
+//click objects
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+function onDocumentTouchStart( event ) {
+  event.preventDefault();
+  console.log("click");
+  event.clientX = event.touches[0].clientX;
+  event.clientY = event.touches[0].clientY;
+  onDocumentMouseDown( event );
+}
+
+function onDocumentMouseDown( event ) {
+
+  event.preventDefault();
+  mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+  mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+  raycaster.setFromCamera( mouse, camera );
+  var intersects = raycaster.intersectObjects( scene.children );
+
+  if ( intersects.length > 0 ) {
+    getClicked(intersects[0].object);
+  }
+}
+
+function getClicked(obj){
+  console.log(obj);
+}
