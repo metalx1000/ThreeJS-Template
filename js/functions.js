@@ -145,6 +145,7 @@ function createGrid(d){
 
 
 //click objects
+var CLICKED, CLICKGROUP = [], LASTCLICKED, CLICKEDTIME = new Date().getTime();
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 document.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -166,10 +167,46 @@ function onDocumentMouseDown( event ) {
   var intersects = raycaster.intersectObjects( scene.children );
 
   if ( intersects.length > 0 ) {
-    getClicked(intersects[0].object);
+    LASTCLICKED = CLICKED;
+    CLICKEDTIME = new Date().getTime();
+    CLICKED = intersects[0].object;
+    add_remove(CLICKGROUP,CLICKED);
   }
 }
 
-function getClicked(obj){
-  console.log(obj);
+//ARRAY FUNCTIONS
+//sort arrays
+function sort_array(arr) {
+  return arr.sort().filter(function(el,i,a) {
+    return (i==a.indexOf(el));
+  });
+}
+
+function removeByValue(array, value){
+  return array.filter(function(elem, _index){
+    return value != elem ? true : false;
+  });
+}
+
+function containsObject(obj, array) {
+  var i;
+  for (i = 0; i < array.length; i++) {
+    if (array[i] === obj) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+//add or remove from group if obj is in group or not
+function add_remove(arr,obj){
+  //add or remove from group
+  if(containsObject(obj, arr)){
+    CLICKGROUP = removeByValue(arr, obj);
+  }else{
+    arr.push(obj);
+    arr = sort_array(arr);
+  }
+
 }
