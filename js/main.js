@@ -4,11 +4,7 @@ var group = [];
 create();
 
 function create(){
-  //setup scene
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-  scene = new THREE.Scene();
+  sceneSetup();
 
   //add camera
   camera = createCamera({x:1});
@@ -19,13 +15,13 @@ function create(){
   //add flycontrols
   //controlsFly();
 
-  //add cube
-  createCube({x:0,y:0,z:0,sx:1,sy:1,sz:1,material:"normal"});
-  for(var i = 1;i < 5;i++){
-    createCube({x:i,y:0,z:0,sx:1,sy:1,sz:1,material:"normal"});
-    createCube({x:-i,y:0,z:0,sx:1,sy:1,sz:1,material:"normal"});
-  }
+  //add cubes
 
+  loadDAE();
+  //get all mesh objects and make them clickable;
+  setTimeout(function(){
+    CLICKABLE = meshList();
+  },1000);
   //start animation
   animate();
 

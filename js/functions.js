@@ -1,6 +1,14 @@
 //resize canvas on window resize
 window.addEventListener( 'resize', onWindowResize, false );
 
+function sceneSetup(){
+  //setup scene
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+}
+
 function onWindowResize( event ) {
   SCREEN_HEIGHT = window.innerHeight;
   SCREEN_WIDTH  = window.innerWidth;
@@ -145,7 +153,7 @@ function createGrid(d){
 
 
 //click objects
-var CLICKED, CLICKGROUP = [], LASTCLICKED, CLICKEDTIME = new Date().getTime();
+var CLICKED, CLICKABLE = [], CLICKGROUP = [], LASTCLICKED, CLICKEDTIME = new Date().getTime();
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 document.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -164,7 +172,7 @@ function onDocumentMouseDown( event ) {
   mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
   mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
   raycaster.setFromCamera( mouse, camera );
-  var intersects = raycaster.intersectObjects( scene.children );
+  var intersects = raycaster.intersectObjects( CLICKABLE );
 
   if ( intersects.length > 0 ) {
     LASTCLICKED = CLICKED;
@@ -210,3 +218,16 @@ function add_remove(arr,obj){
   }
 
 }
+
+//list all mesh
+var MESH = [];
+function meshList(){
+  scene.traverse( function( node ) {
+    if ( node instanceof THREE.Mesh ) {
+      // insert your code here, for example:
+      MESH.push(node);
+    }
+  } );
+  return MESH;
+}
+
