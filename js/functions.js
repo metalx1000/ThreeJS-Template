@@ -104,6 +104,7 @@ function controlsFly(){
   controls.dragToLook = false;
 }
 
+var sceneDAE;
 function loadDAE(_dae){
   if(typeof _dae === "undefined"){_dae = "monkey.dae";}
   _dae = "models/dae/" + _dae;
@@ -112,8 +113,11 @@ function loadDAE(_dae){
   loader.options.convertUpAxis = true;
   loader.load( _dae, function ( collada ) {
     dae = collada.scene;
+    sceneDAE = dae;
     scene.add(dae);
+    meshList();
   });
+
 }
 
 function controlsOrbit(d){
@@ -222,6 +226,7 @@ function add_remove(arr,obj){
 //list all mesh
 var MESH = [];
 function meshList(){
+  MESH = [];
   scene.traverse( function( node ) {
     if ( node instanceof THREE.Mesh ) {
       // insert your code here, for example:
