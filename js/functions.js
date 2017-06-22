@@ -108,13 +108,14 @@ function controlsFly(){
 }
 
 var sceneDAE;
-function loadDAE(_dae){
-  if(typeof _dae === "undefined"){_dae = "scene.dae";}
-  _dae = "models/dae/" + _dae;
-  console.log("loading "+_dae);
+function loadDAE(d){
+  if(typeof d === "undefined"){d = {};}
+  if(typeof d.scene === "undefined"){d.scene = "scene.dae";}
+  dae = "models/dae/" + d.scene;
+  console.log("loading "+dae);
   var loader = new THREE.ColladaLoader();
   loader.options.convertUpAxis = true;
-  loader.load( _dae, function ( collada ) {
+  loader.load( dae, function ( collada ) {
     dae = collada.scene;
     sceneDAE = dae;
     scene.add(dae);
