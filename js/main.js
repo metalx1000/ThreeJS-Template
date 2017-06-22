@@ -1,6 +1,3 @@
-var camera, renderer, scene;
-var group = [];
-
 create();
 
 function create(){
@@ -15,9 +12,6 @@ function create(){
   //add flycontrols
   //controlsFly();
 
-  //add cubes
-
-  loadDAE();
   //get all mesh objects and make them clickable;
   setTimeout(function(){
     CLICKABLE = meshList();

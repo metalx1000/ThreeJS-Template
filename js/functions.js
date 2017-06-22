@@ -1,3 +1,6 @@
+var camera, renderer, scene;
+var group = [];
+
 //resize canvas on window resize
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -106,7 +109,7 @@ function controlsFly(){
 
 var sceneDAE;
 function loadDAE(_dae){
-  if(typeof _dae === "undefined"){_dae = "monkey.dae";}
+  if(typeof _dae === "undefined"){_dae = "scene.dae";}
   _dae = "models/dae/" + _dae;
   console.log("loading "+_dae);
   var loader = new THREE.ColladaLoader();
