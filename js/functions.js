@@ -51,7 +51,7 @@ function createCylinder(d){
 
   if(typeof d.radtop === "undefined"){d.radtop = .2;}
   if(typeof d.radbottom === "undefined"){d.radbottom = .2;}
-  if(typeof d.h === "undefined"){d.h = 1;}
+  if(typeof d.height === "undefined"){d.height = 1;}
   if(typeof d.segments === "undefined"){d.segments = 32;}
   if(typeof d.openend === "undefined"){d.openend = false;}
 
@@ -59,7 +59,7 @@ function createCylinder(d){
   if(typeof d.material === "undefined"){d.material = "normal";}
   if(typeof d.color === "undefined"){d.color = ( Math.random() * 0xffffff );}
 
-  var geometry = new THREE.CylinderGeometry( d.radtop, d.radbottom, d.h, d.segments );
+  var geometry = new THREE.CylinderGeometry( d.radtop, d.radbottom, d.height, d.segments );
   var material = materials(d.material, d.color);
   var c = new THREE.Mesh( geometry, material );
   scene.add(c);
@@ -236,3 +236,16 @@ function meshList(){
   return MESH;
 }
 
+//Rotating Camera
+function cameraRotate(d){
+  if(typeof d === "undefined"){d = {};}
+  if(typeof d.lookAt === "undefined"){d.lookAt = scene.position;}
+  if(typeof d.direction === "undefined"){d.direction = 1;}
+
+  var timer = Date.now() * 0.001;
+
+  camera.position.x = (Math.cos( timer ) * 10) * d.direction;
+  camera.position.z = Math.sin( timer ) * 10;
+
+  camera.lookAt( d.lookAt );
+}
